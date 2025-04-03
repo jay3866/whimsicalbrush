@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #c026d3;
+  --primary-color-dark: #a21caf;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply font-sans text-gray-800 bg-white;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 text-white rounded-md transition-colors duration-200;
+    background-color: var(--primary-color);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--primary-color-dark);
+  }
+  
+  .nav-link {
+    @apply text-gray-600 transition-colors duration-200;
+  }
+
+  .nav-link:hover {
+    color: var(--primary-color);
+  }
+
+  .artwork-card {
+    @apply relative overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl;
+  }
+
+  .artwork-overlay {
+    @apply absolute inset-0 bg-black bg-opacity-40 opacity-0 transition-opacity duration-300 flex items-center justify-center;
+  }
+
+  .artwork-card:hover .artwork-overlay {
+    @apply opacity-100;
+  }
+
+  .form-radio {
+    @apply border-gray-300;
+    color: var(--primary-color);
+  }
+
+  .form-radio:checked {
+    background-color: var(--primary-color);
+  }
+}
