@@ -63,17 +63,16 @@ const Footer = () => {
               <li><Link to="/about" className="nav-link">About</Link></li>
               <li><Link to="/gallery" className="nav-link">Gallery</Link></li>
               <li><Link to="/events" className="nav-link">Events</Link></li>
-              <li><Link to="/contact" className="nav-link">Contact</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-serif text-lg mb-4">Visit</h3>
-            <address className="text-gray-600 not-italic">
-              Studio Location<br />
-              By Appointment Only<br />
-              Contact for Details
-            </address>
+            <h3 className="font-serif text-lg mb-4">More</h3>
+            <ul className="space-y-2">
+              <li><Link to="/contact" className="nav-link">Contact</Link></li>
+              <li><Link to="/terms" className="nav-link">Terms of Use</Link></li>
+              <li><Link to="/privacy" className="nav-link">Privacy Policy</Link></li>
+            </ul>
           </div>
         </div>
       </div>

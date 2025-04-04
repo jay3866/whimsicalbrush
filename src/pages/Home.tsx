@@ -192,11 +192,24 @@ const Home = () => {
 
       {/* Artwork Modal */}
       {selectedArtwork && (
-        <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4">
-          <div className="max-w-4xl w-full bg-white rounded-lg overflow-hidden relative">
+        <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex flex-col items-center justify-center p-4">
+          {/* Close button bar at top for mobile */}
+          <div className="w-full flex justify-between items-center bg-white py-2 px-4 mb-2 rounded-t-lg md:hidden">
+            <h3 className="text-lg font-medium text-gray-900">{selectedArtwork.title}</h3>
             <button 
               onClick={() => setSelectedArtwork(null)}
-              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 z-10"
+              className="text-gray-800 p-1"
+              aria-label="Close lightbox"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+          
+          <div className="max-w-4xl w-full bg-white rounded-lg md:rounded-t-lg overflow-hidden relative">
+            {/* Close button at top right (desktop only) */}
+            <button 
+              onClick={() => setSelectedArtwork(null)}
+              className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 z-10 hidden md:block"
             >
               <X className="h-6 w-6" />
             </button>
