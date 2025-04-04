@@ -90,10 +90,10 @@ const Home = () => {
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-serif mb-6">
-              Welcome
+              {siteContent.home_welcome_title || 'Welcome'}
             </h2>
             <p className="text-lg text-gray-600 mb-8">
-              I'm an artist, teacher, and mom who rediscovered my creative passion in 2020 while designing art projects for my young child. I work with mostly watercolors and find great joy in painting botanicals and whimsy creatures like birds and butterflies. Acrylics and pastels on large canvases allow me to express big ideas, to recreate a moment in nature that stays in my mind.
+              {siteContent.home_welcome_text || "I'm an artist, teacher, and mom who rediscovered my creative passion in 2020 while designing art projects for my young child. I work with mostly watercolors and find great joy in painting botanicals and whimsy creatures like birds and butterflies. Acrylics and pastels on large canvases allow me to express big ideas, to recreate a moment in nature that stays in my mind."}
             </p>
             <Link to="/about" className="inline-flex items-center text-primary-600 hover:text-primary-700">
               Read More About My Journey
