@@ -90,10 +90,10 @@ const Home = () => {
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-serif mb-6">
-              {siteContent.home_welcome_title || ''}
+              Welcome
             </h2>
             <p className="text-lg text-gray-600 mb-8">
-              {siteContent.home_welcome_text || ''}
+              I'm an artist, teacher, and mom who rediscovered my creative passion in 2020 while designing art projects for my young child. I work with mostly watercolors and find great joy in painting botanicals and whimsy creatures like birds and butterflies. Acrylics and pastels on large canvases allow me to express big ideas, to recreate a moment in nature that stays in my mind.
             </p>
             <Link to="/about" className="inline-flex items-center text-primary-600 hover:text-primary-700">
               Read More About My Journey
@@ -124,7 +124,7 @@ const Home = () => {
                 <div className="artwork-overlay">
                   <div className="text-white text-center">
                     <h3 className="text-xl font-serif mb-2">{artwork.title}</h3>
-                    <p className="text-sm">{artwork.medium}, {artwork.year}</p>
+                    <p className="text-sm">{artwork.medium}{artwork.medium && artwork.year ? ', ' : ''}{artwork.year}</p>
                   </div>
                 </div>
               </div>
@@ -174,7 +174,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Newsletter Section */}
+      {/* Newsletter Section - Commented out until ready to use
       <section className="py-20 bg-nature-sage bg-opacity-10">
         <div className="container-custom">
           <div className="max-w-2xl mx-auto text-center">
@@ -188,6 +188,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+      */}
 
       {/* Artwork Modal */}
       {selectedArtwork && (

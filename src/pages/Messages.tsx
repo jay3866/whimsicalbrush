@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, Mail, Check, X } from 'lucide-react';
+import { Trash2, Mail, Check, X, RefreshCw } from 'lucide-react';
 import { supabase, getMessages, updateMessageStatus, deleteMessage } from '../lib/supabase';
 
 interface Message {
@@ -15,6 +15,8 @@ interface Message {
 function Messages() {
   const navigate = useNavigate();
   const [messages, setMessages] = useState<Message[]>([]);
+  const [filteredMessages, setFilteredMessages] = useState<Message[]>([]);
+  const [filter, setFilter] = useState<'all' | 'read' | 'unread'>('all');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,6 +24,16 @@ function Messages() {
     checkAuth();
     loadMessages();
   }, []);
+
+  useEffect(() => {
+    if (filter === 'all') {
+      setFilteredMessages(messages);
+    } else if (filter === 'read') {
+      setFilteredMessages(messages.filter(msg => msg.read));
+    } else {
+      setFilteredMessages(messages.filter(msg => !msg.read));
+    }
+  }, [messages, filter]);
 
   async function checkAuth() {
     const { data: { session } } = await supabase.auth.getSession();
@@ -44,12 +56,15 @@ function Messages() {
 
   const handleToggleRead = async (id: string, currentStatus: boolean) => {
     try {
+      setLoading(true);
       await updateMessageStatus(id, !currentStatus);
       setMessages(messages.map(msg => 
         msg.id === id ? { ...msg, read: !currentStatus } : msg
       ));
+      setLoading(false);
     } catch (err) {
       console.error('Error updating message status:', err);
+      setLoading(false);
     }
   };
 
@@ -57,10 +72,13 @@ function Messages() {
     if (!confirm('Are you sure you want to delete this message?')) return;
 
     try {
+      setLoading(true);
       await deleteMessage(id);
       setMessages(messages.filter(msg => msg.id !== id));
+      setLoading(false);
     } catch (err) {
       console.error('Error deleting message:', err);
+      setLoading(false);
     }
   };
 
@@ -77,23 +95,65 @@ function Messages() {
   if (loading) return <div className="container-custom py-12">Loading...</div>;
   if (error) return <div className="container-custom py-12 text-red-600">{error}</div>;
 
+  const refreshMessages = () => {
+    setLoading(true);
+    loadMessages();
+  };
+
+  const unreadCount = messages.filter(msg => !msg.read).length;
+
   return (
     <div className="container-custom py-12">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-serif">Messages</h1>
+        <div>
+          <h1 className="text-3xl font-serif">Messages</h1>
+          <p className="text-gray-600 mt-1">
+            {messages.length} total messages, {unreadCount} unread
+          </p>
+        </div>
         <button onClick={() => navigate('/admin')} className="text-gray-600 hover:text-gray-900">
           Back to Dashboard
         </button>
       </div>
 
-      {messages.length === 0 ? (
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex space-x-2">
+          <button 
+            onClick={() => setFilter('all')}
+            className={`px-4 py-2 rounded-md ${filter === 'all' ? 'bg-primary-100 text-primary-700' : 'bg-gray-100 text-gray-700'}`}
+          >
+            All
+          </button>
+          <button 
+            onClick={() => setFilter('unread')}
+            className={`px-4 py-2 rounded-md ${filter === 'unread' ? 'bg-primary-100 text-primary-700' : 'bg-gray-100 text-gray-700'}`}
+          >
+            Unread
+          </button>
+          <button 
+            onClick={() => setFilter('read')}
+            className={`px-4 py-2 rounded-md ${filter === 'read' ? 'bg-primary-100 text-primary-700' : 'bg-gray-100 text-gray-700'}`}
+          >
+            Read
+          </button>
+        </div>
+        <button 
+          onClick={refreshMessages}
+          className="flex items-center space-x-2 text-gray-600 hover:text-gray-900"
+        >
+          <RefreshCw className="h-4 w-4" />
+          <span>Refresh</span>
+        </button>
+      </div>
+
+      {filteredMessages.length === 0 ? (
         <div className="text-center text-gray-600 py-8">
           <Mail className="h-12 w-12 mx-auto mb-4 opacity-50" />
-          <p>No messages yet</p>
+          <p>{messages.length === 0 ? 'No messages yet' : 'No messages match the current filter'}</p>
         </div>
       ) : (
         <div className="space-y-6">
-          {messages.map((message) => (
+          {filteredMessages.map((message) => (
             <div 
               key={message.id} 
               className={`bg-white rounded-lg shadow-lg p-6 ${!message.read ? 'border-l-4 border-primary-500' : ''}`}

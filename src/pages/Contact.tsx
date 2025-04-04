@@ -69,14 +69,6 @@ function Contact() {
                 <span>@a_whimsical_brush</span>
               </a>
             </div>
-
-            <div>
-              <h3 className="text-xl font-serif mb-3">Studio Location</h3>
-              <address className="text-gray-600 not-italic">
-                By Appointment Only<br />
-                Contact for Details
-              </address>
-            </div>
           </div>
 
           {/* Contact Form */}

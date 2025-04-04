@@ -96,18 +96,6 @@ function Events() {
             ))}
           </div>
         )}
-
-        {/* Call to Action */}
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl font-serif mb-4">Interested in Hosting an Event?</h3>
-          <p className="text-gray-600 mb-6">
-            The studio is available for private events, workshops, and exhibitions.
-            Get in touch to discuss your ideas.
-          </p>
-          <a href="/contact" className="btn-primary inline-flex">
-            Contact Us
-          </a>
-        </div>
       </div>
     </div>
   );
