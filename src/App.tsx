@@ -11,6 +11,8 @@ import Admin from './pages/Admin';
 import Messages from './pages/Messages';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 import Footer from './components/Footer';
 import { getSiteContent } from './lib/supabase';
 
@@ -59,6 +61,8 @@ function App() {
             <Route path="/admin/messages" element={<Messages />} />
             <Route path="/login" element={<Login />} />
             <Route path="/registerjrb" element={<Register />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy" element={<Privacy />} />
           </Routes>
         </main>
         <Footer />

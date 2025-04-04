@@ -452,6 +452,12 @@ function Admin() {
               Event Management
             </button>
             <button
+              onClick={() => navigate('/admin/messages')}
+              className={`py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300`}
+            >
+              Messages
+            </button>
+            <button
               onClick={() => setMainTab('pages')}
               className={`py-4 px-1 border-b-2 font-medium text-sm ${
                 mainTab === 'pages'
@@ -800,7 +806,7 @@ function Admin() {
 
               {editingContent === content.key ? (
                 <div className="space-y-4">
-                  {content.type === 'image_url' ? (
+                  {content.type === 'image_url' || content.key.includes('image') ? (
                     <div>
                       <div className="flex items-center space-x-4 mb-4">
                         <input
@@ -854,7 +860,7 @@ function Admin() {
                 </div>
               ) : (
                 <div className="mt-2">
-                  {content.type === 'image_url' ? (
+                  {(content.type === 'image_url' || content.key.includes('image')) ? (
                     <img
                       src={content.value}
                       alt="Content preview"
